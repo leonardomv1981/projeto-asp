@@ -1,4 +1,19 @@
 <%
+
+Function ValidateNumber(ByVal value)
+    Dim regex
+    Set regex = New RegExp
+    regex.Pattern = "^\d+(\,\d+)?$"
+    ValidateNumber = regex.Test(value)
+End Function
+
+Function ValidateText(ByVal value)
+    Dim regex
+    Set regex = New RegExp
+    regex.Pattern = "^[a-zA-Z0-9\s]+$"
+    ValidateText = regex.Test(value)
+End Function
+
 Dim valor, aliquotaIRPF, aliquotaIRPJ, deducaoIR, valorProLabore, valorINSSEmpresa, valorINSSProLabore, despesas, outrasDespesas
 
 valor = Replace(Request.Form("currency"), "R$: ", "")
@@ -7,6 +22,18 @@ valorProLabore = Replace(Request.Form("proLabore"), "R$: ", "")
 valorProLabore = Replace(valorProLabore, ".", "")
 outrasDespesas = 500.00
 despesas = outrasDespesas
+
+'validando valores - garantindo que o conteúdo seja número decimal com ',' (proteção contra sql injection)
+if not ValidateNumber(valor) then
+    Response.Write("Erro! Valor inválido - o campo deve conter somente números")
+    Response.End
+end if
+
+if not ValidateNumber(valorProLabore) then
+    Response.Write("Erro! Valor inválido - o campo deve conter somente números")
+    Response.End
+end if
+
 
 
 'aplicando aliquota de IR da PJ e devolvendo despesa
