@@ -1,16 +1,16 @@
 <%
-
-Function ValidateNumber(ByVal value)
-    Dim regex
-    Set regex = New RegExp
-    regex.Pattern = "^\d+(\,\d+)?$"
-    ValidateNumber = regex.Test(value)
+Function ValidateNumber(value)
+    If IsNumeric(value) Then
+        ValidateNumber = True
+    Else
+        ValidateNumber = False
+    End If
 End Function
 
 Function ValidateText(ByVal value)
     Dim regex
     Set regex = New RegExp
-    regex.Pattern = "^[a-zA-Z0-9\s]+$"
+    regex.Pattern = "(INSERT|UPDATE|DELETE|DROP|CREATE TABLE|ALTER TABLE|SELECT|OR|AND)"
     ValidateText = regex.Test(value)
 End Function
 
@@ -33,8 +33,6 @@ if not ValidateNumber(valorProLabore) then
     Response.Write("Erro! Valor inválido - o campo deve conter somente números")
     Response.End
 end if
-
-
 
 'aplicando aliquota de IR da PJ e devolvendo despesa
 aliquotaIRPJ = 0.14
