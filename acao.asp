@@ -74,7 +74,7 @@ Set xmlhttp = Nothing
 '===============ITEM 10===============
 set oJSON = New aspJSON
 oJSON.loadJSON(result)
-response.write(oJSON.data("results")(0)("name")("first"))
+response.write(oJSON.data("results")(0)("imagem"))
 
 
 Dim valor, aliquotaIRPF, aliquotaIRPJ, deducaoIR, valorProLabore, valorINSSEmpresa, valorINSSProLabore, despesas, outrasDespesas
